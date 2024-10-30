@@ -24,7 +24,7 @@ extension Endpoint {
     }
 
     var host: String {
-        return "newsapi.org"
+        return ""
     }
 }
 
@@ -47,7 +47,7 @@ extension NewsEndpoint: Endpoint {
             return ""
         }
     }
-    
+
     var path: String {
             switch self {
             case .exchangeRates:
@@ -63,7 +63,7 @@ extension NewsEndpoint: Endpoint {
     }
 
     var header: [String : String]? {
-        let accessToken = "f36d7950db4e3ded0670571772b404ed"
+        let accessToken = "120029318d94458c867a745671a02d09"
         
         switch self {
         case .exchangeRates:

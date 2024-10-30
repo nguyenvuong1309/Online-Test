@@ -1,5 +1,5 @@
 // // Model/ExchangeRatesResponse.swift
-import Foundation
+// import Foundation
 
 struct ExchangeRatesResponse: Codable {
     let success: Bool

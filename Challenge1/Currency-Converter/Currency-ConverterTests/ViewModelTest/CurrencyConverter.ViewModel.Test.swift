@@ -27,7 +27,7 @@ class CurrencyConverterViewModelTest: XCTestCase {
         super.tearDown()
     }
     
-     func test_ready_State() {
+    func test_ready_State() {
         let expectation = expectValue(of: homeViewModel.$states.eraseToAnyPublisher(),
                                       expectationDescription: "is state ready",
                                       equals: [{ $0 == .ready}])

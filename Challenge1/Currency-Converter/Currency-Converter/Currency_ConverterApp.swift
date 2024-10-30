@@ -13,7 +13,7 @@ struct CurrencyConverterApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CurrencyConverterView()
+            CurrencyConverter()
                 .environmentObject(languageSettings)
         }
     }
