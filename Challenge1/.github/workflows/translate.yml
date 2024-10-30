@@ -1,0 +1,50 @@
+name: Translate Vietnamese to English
+permissions:
+  contents: write
+
+on:
+  pull_request:
+    paths:
+      - "Currency-Converter/vi.lproj/Localizable.strings" # Kích hoạt khi Localizable.strings thay đổi trong vi.lproj
+  workflow_dispatch: # Cho phép kích hoạt thủ công
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: feature/auto_translate # Ensure we are on the target branch
+          persist-credentials: true # Keep credentials for pushing changes
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install deep_translator
+
+      - name: Run translation script
+        run: |
+          python Currency-Converter/translate.py
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Update English translations" || echo "No changes to commit"
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.ENV_GITHUB_TOKEN }}
+        run: |
+          git push https://github-actions[bot]:${{ secrets.ENV_GITHUB_TOKEN }}@github.com/nguyenvuong1309/Currency-Converter.git HEAD:feature/auto_translate
